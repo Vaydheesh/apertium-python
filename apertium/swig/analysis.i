@@ -1,33 +1,27 @@
-%module analysis 
+%module analysis
 
 %{
 #define SWIG_FILE_WITH_INIT
-#include "fst_processor.h"
-#include "lttoolbox_config.h"
-#include "my_stdio.h"
-#include "lt_locale.h"
-
-#define EXIT_FAILURE  1 /* Failing exit status.  */
+#include <lttoolbox/fst_processor.h>
+#include <lttoolbox/lttoolbox_config.h>
+#include <lttoolbox/my_stdio.h>
+#include <lttoolbox/lt_locale.h>
 
 class FST: private FSTProcessor
 {
-private:
-  void check_validity();
-
 public:
   /**
    * Reads from input_path and stores result at output_path
    */  
   void init_analysis(char *automorf_path, char *input_path, char *output_path);
+  bool validity() const;
+
 };
 
-void 
-FST::check_validity()
+bool 
+FST::validity() const
 {
-  if(!valid())
-  {
-      exit(EXIT_FAILURE);
-  }
+  return valid();
 }
 
 void 
@@ -38,7 +32,6 @@ FST::init_analysis(char *automorf_path, char *input_path, char *output_path)
   FILE *in = fopen(automorf_path, "rb");
   load(in);
   initAnalysis();
-  check_validity();
   FILE *input = fopen(input_path, "r"), *output = fopen(output_path, "w");
   analysis(input, output);
   fclose(in);
@@ -49,19 +42,17 @@ FST::init_analysis(char *automorf_path, char *input_path, char *output_path)
 %}
 
 
-%include "fst_processor.h"
-%include "lttoolbox_config.h"
-%include "my_stdio.h"
-%include "lt_locale.h"
+#include <lttoolbox/fst_processor.h>
+#include <lttoolbox/lttoolbox_config.h>
+#include <lttoolbox/my_stdio.h>
+#include <lttoolbox/lt_locale.h>
 
 class FST: private FSTProcessor
 {
-private:
-  void check_validity();
-
 public:
   /**
    * Reads from input_path and stores result at output_path
    */  
   void init_analysis(char *automorf_path, char *input_path, char *output_path);
-};
+  bool validity() const;
+};  
