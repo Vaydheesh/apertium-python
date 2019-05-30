@@ -14,7 +14,7 @@ obj_sources = $(cc_sources:.cc=.o)
 ODIR = ./lttoolbox/lttoolbox
 OBJS = $(patsubst %,$(ODIR)/%,$(obj_sources))
 
-CFLAGS = -O2 -fPIC -c
+CFLAGS = -O2 -fPIC -c -std=gnu++14
 INCLUDES = -I../swig/lttoolbox
 PYINCLUDE = $(shell python-config --cflags | awk '{print $$1}')
 XMLINCLUDE = $(shell xml2-config --cflags)

@@ -11,7 +11,7 @@ cc_sources = alphabet.cc att_compiler.cc compiler.cc compression.cc entry_token.
              regexp_compiler.cc sorted_vector.cc state.cc transducer.cc \
              trans_exe.cc xml_parse_util.cc tmx_compiler.cc
 obj_sources = $(cc_sources:.cc=.o)
-CFLAGS = -O2 -fPIC -c
+CFLAGS = -O2 -fPIC -c -std=gnu++14
 INCLUDES = -I../
 XMLINCLUDE = $(shell xml2-config --cflags)
 LFLAGS = $(subst -I,-L,$(XMLINCLUDE))
