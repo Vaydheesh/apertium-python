@@ -11,8 +11,8 @@ install:
     - travis_retry pip install -r requirements-dev.txt
 before_script:
     - wget http://apertium.projectjj.com/apt/install-nightly.sh -O - | sudo bash
-    - sudo apt-get -f --allow-unauthenticated install apertium-all-dev
-    - sudo apt-get -f --allow-unauthenticated install apertium-nno-nob apertium-es-en apertium-eng
+    - sudo apt-get -f --allow-unauthenticated install apertium-all-dev swig
+    - sudo apt-get -f --allow-unauthenticated install apertium-nno-nob apertium-es-en apertium-eng swig
 script:
     - make -C ./apertium/swig/
     - flake8 --verbose apertium
