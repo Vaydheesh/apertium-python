@@ -1,5 +1,5 @@
 language: python
-dist: trusty
+dist: xenial
 cache:
     pip: true
 python:
@@ -14,6 +14,7 @@ before_script:
     - sudo apt-get -f --allow-unauthenticated install apertium-all-dev
     - sudo apt-get -f --allow-unauthenticated install apertium-nno-nob apertium-es-en apertium-eng
 script:
+    - make -C ./apertium/swig/
     - flake8 --verbose apertium
     - if [[ $TRAVIS_PYTHON_VERSION != 3.4 ]]; then
         mypy apertium --strict --any-exprs-report .mypy_coverage --ignore-missing-imports;
