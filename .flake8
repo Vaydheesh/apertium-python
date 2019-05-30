@@ -1,3 +1,4 @@
 [flake8]
 max-line-length=160
 exclude = docs/source/conf.py,apertium/swig
+ignore = Q000,E302,E226,F401,F841,W291
