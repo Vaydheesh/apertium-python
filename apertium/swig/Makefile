@@ -16,9 +16,8 @@ OBJS = $(patsubst %,$(ODIR)/%,$(obj_sources))
 
 CFLAGS = -O2 -fPIC -c
 INCLUDES = -I../swig/lttoolbox
-PYINCLUDE = -I/usr/include/python3.7m 
-XMLINCLUDE = -I/usr/include/libxml2
-LFLAGS = -L/usr/include/libxml2
+PYINCLUDE = $(shell python-config --cflags | awk '{print $$1}')
+XMLINCLUDE = $(shell xml2-config --cflags)
 LIBS = -lxml2 -lm
 SWIGFLAGS = -python -c++ -Wall
 MAIN = analysis

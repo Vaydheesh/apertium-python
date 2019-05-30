@@ -13,9 +13,8 @@ cc_sources = alphabet.cc att_compiler.cc compiler.cc compression.cc entry_token.
 obj_sources = $(cc_sources:.cc=.o)
 CFLAGS = -O2 -fPIC -c
 INCLUDES = -I../
-PYINCLUDE = -I/usr/include/python3.7m 
-XMLINCLUDE = -I/usr/include/libxml2 
-LFLAGS = -L/usr/include/libxml2
+XMLINCLUDE = $(shell xml2-config --cflags)
+LFLAGS = $(subst -I,-L,$(XMLINCLUDE))
 LIBS = -lxml2 -lm
 
 obj_sources: $(cc_sources) $(h_sources)
