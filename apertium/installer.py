@@ -4,6 +4,7 @@ import os
 import platform
 import shutil
 import subprocess
+import sys
 import sysconfig
 import tempfile
 from urllib.request import urlretrieve
@@ -95,7 +96,7 @@ class Windows:
         self._edit_modes()
 
     def install_wrapper(self, swig_wrapper: str = '') -> None:
-        wrapper_link = 'https://codeload.github.com/Vaydheesh/wrappers/zip/windows'
+        wrapper_link = 'https://codeload.github.com/Vaydheesh/wrappers/zip/py3{}-64'.format(sys.version_info.minor)
         zip_name = 'windows.zip'
         zip_download_path = os.path.join(os.environ['temp'], zip_name)
         urlretrieve(wrapper_link, filename=zip_download_path)
