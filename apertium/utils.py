@@ -45,6 +45,7 @@ def execute_pipeline(inp: str, commands: List[List[str]]) -> str:
         str
     """
     end = inp.encode()
+    timeout_secs = 5
     for command in commands:
         # On Windows, a NamedTemporaryFile with delete=True can only be opened once.
         # Since the file is opened both by Python and the C++ SWIG wrappers, we use
@@ -100,7 +101,10 @@ def execute_pipeline(inp: str, commands: List[List[str]]) -> str:
         if not wrappers_available or not used_wrapper:
             apertium.logger.warning('Calling subprocess %s', command[0])
             proc = subprocess.Popen(command, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-            end, _ = proc.communicate(end)
+            try:
+                end, _ = proc.communicate(end, timeout=timeout_secs)
+            except subprocess.TimeoutExpired:
+                proc.kill()
     return end.decode()
 
 
