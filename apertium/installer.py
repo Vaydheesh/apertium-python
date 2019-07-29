@@ -4,8 +4,8 @@ import os
 import platform
 import shutil
 import subprocess
+import sysconfig
 import tempfile
-from typing import Optional
 from urllib.request import urlretrieve
 from zipfile import ZipFile
 
@@ -22,7 +22,7 @@ class Windows:
         self._logger = logging.getLogger()
         self._logger.setLevel(logging.DEBUG)
 
-    def _download_zip(self, download_files: dict, extract_path: Optional[str]) -> None:
+    def _download_zip(self, download_files: dict, extract_path: str) -> None:
         for zip_name, zip_link in download_files.items():
             zip_download_path = os.path.join(self._download_path, zip_name)
             urlretrieve(Windows.base_link.format(zip_link), filename=zip_download_path)
@@ -94,9 +94,25 @@ class Windows:
         self._download_package(language)
         self._edit_modes()
 
-    def install_wrapper(self, swig_wrapper: str) -> None:
-        # TODO: create installer for wrappers on windows
-        pass
+    def install_wrapper(self, swig_wrapper: str = '') -> None:
+        wrapper_link = 'https://codeload.github.com/Vaydheesh/wrappers/zip/windows'
+        zip_name = 'windows.zip'
+        zip_download_path = os.path.join(os.environ['temp'], zip_name)
+        urlretrieve(wrapper_link, filename=zip_download_path)
+
+        extract_path = tempfile.mkdtemp()
+        # Extract the zip
+        with ZipFile(zip_download_path) as zip_file:
+            zip_file.extractall(path=extract_path)
+        self._logger.info('%s Extraction completed', zip_name)
+
+        self._logger.info('Copying wrapper to site-packages')
+        site_packages = sysconfig.get_paths()['purelib']
+        for directory in os.listdir(extract_path):
+            source = os.path.join(extract_path, directory)
+            destination = site_packages
+            copy_tree(source, destination)
+            self._logger.info('%s -> %s', source, destination)
 
 
 class Ubuntu:
