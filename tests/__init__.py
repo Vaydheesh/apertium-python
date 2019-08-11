@@ -91,6 +91,7 @@ class TestInstallation(unittest.TestCase):
         importlib.reload(apertium)
         self.assertIn(language, apertium.analyzers, 'apetium.install_module not working')
 
+    @unittest.skipIf(platform.system() == 'Windows', 'wrappers not available for windows')
     def test_install_wrapper(self):
         apertium.installer.install_wrapper('python3-lttoolbox')
         if platform.system() == 'Linux':
