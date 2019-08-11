@@ -111,7 +111,10 @@ class TestTranslate(unittest.TestCase):
         self.assertEqual(translated, 'Gatos')
 
     def test_kaz_tat(self):
-        apertium.installer.install_module('kaz-tat')
-        importlib.reload(apertium)
         translated = apertium.translate('kaz', 'tat', 'мысық')
+        self.assertEqual(translated, 'мәче')
+
+    def test_translator_kaz_tat(self):
+        translator = apertium.Translator('kaz', 'tat')
+        translated = translator.translate('мысық')
         self.assertEqual(translated, 'мәче')
