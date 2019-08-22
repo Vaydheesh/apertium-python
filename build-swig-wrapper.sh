@@ -10,3 +10,11 @@ cd python
 make -j2
 python3 setup.py install
 popd
+
+git clone -b wrapper_FILE --depth 1 https://github.com/Vaydheesh/lttoolbox.git
+pushd lttoolbox
+./autogen.sh --enable-python-bindings
+cd python
+make -j2
+python3 setup.py install
+popd

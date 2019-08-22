@@ -63,7 +63,7 @@ def execute_pipeline(inp: str, commands: List[List[str]]) -> str:
 
             if 'lt-proc' == command[0] and '-w' == command[1]:
                 dictionary_path = command[-1]
-                dictionary = lttoolbox.fopen(dictionary_path, "rb")
+                dictionary = lttoolbox.fopen(dictionary_path, 'rb')
 
                 lttoolbox.LtLocale.tryToSetLocale()
                 fstp = lttoolbox.FSTProcessor()
@@ -73,8 +73,8 @@ def execute_pipeline(inp: str, commands: List[List[str]]) -> str:
                 fstp.initAnalysis()
                 if not fstp.valid():
                     raise ValueError('FST Invalid')
-                input_pointer = lttoolbox.fopen(input_file.name, "r")
-                output_pointer = lttoolbox.fopen(output_file.name, "w")
+                input_pointer = lttoolbox.fopen(input_file.name, 'r')
+                output_pointer = lttoolbox.fopen(output_file.name, 'w')
                 fstp.analysis(input_pointer, output_pointer)
                 lttoolbox.fclose(input_pointer)
                 lttoolbox.fclose(output_pointer)
