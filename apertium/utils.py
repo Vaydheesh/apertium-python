@@ -61,13 +61,23 @@ def execute_pipeline(inp: str, commands: List[List[str]]) -> str:
             input_file.write(text)
             input_file.close()
 
-            if 'lt-proc' == command[0]:
+            if 'lt-proc' == command[0] and '-w' == command[1]:
                 dictionary_path = command[-1]
+                dictionary = lttoolbox.fopen(dictionary_path, "rb")
+
                 lttoolbox.LtLocale.tryToSetLocale()
-                fst = lttoolbox.FST(dictionary_path)
-                if not fst.valid():
+                fstp = lttoolbox.FSTProcessor()
+                fstp.load(dictionary)
+                lttoolbox.fclose(dictionary)
+
+                fstp.initAnalysis()
+                if not fstp.valid():
                     raise ValueError('FST Invalid')
-                fst.lt_proc(arg, input_file_name, output_file_name)
+                input_pointer = lttoolbox.fopen(input_file.name, "r")
+                output_pointer = lttoolbox.fopen(output_file.name, "w")
+                fstp.analysis(input_pointer, output_pointer)
+                lttoolbox.fclose(input_pointer)
+                lttoolbox.fclose(output_pointer)
             elif 'lrx-proc' == command[0]:
                 dictionary_path = command[-1]
                 lextools.LtLocale.tryToSetLocale()
