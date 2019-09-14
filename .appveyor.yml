@@ -35,7 +35,7 @@ install:
   - python -c "import sys,platform,struct; print(sys.platform, platform.machine(), struct.calcsize('P') * 8, )"
   - pip install pipenv
   - pipenv install --dev --system
-  - python setup.py install
+  - pip install apertium
 build: false
 test_script:
   - coverage run -m unittest --verbose --buffer tests
