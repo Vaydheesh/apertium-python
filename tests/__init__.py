@@ -182,6 +182,11 @@ class TestSubProcess(unittest.TestCase):
 
 
 class TestTranslate(unittest.TestCase):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if platform.system() == 'Windows':
+            apertium.utils.wrappers_available = False
+
     def test_translator_en_spa(self):
         translator = apertium.Translator('eng', 'spa')
         translated = translator.translate('cats')
