@@ -148,15 +148,20 @@ class TestInstallation(unittest.TestCase):
 
 
 class TestSubProcess(unittest.TestCase):
-    def test_analyze_en_subprocess(self):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._wrappers_available = apertium.utils.wrappers_available
         apertium.utils.wrappers_available = False
+
+    def __del__(self):
+        apertium.utils.wrappers_available = self._wrappers_available
+
+    def test_analyze_en_subprocess(self):
         test_analyze = TestAnalyze()
         test_analyze.test_analyzer_en()
         test_analyze.test_analyze_en()
-        apertium.utils.wrappers_available = True
 
     def test_generate_en_subprocess(self):
-        apertium.utils.wrappers_available = False
         test_generate = TestGenerate()
         test_generate.test_generator_single()
         test_generate.test_generator_multiple()
@@ -164,29 +169,19 @@ class TestSubProcess(unittest.TestCase):
         test_generate.test_single()
         test_generate.test_multiple()
         test_generate.test_bare()
-        apertium.utils.wrappers_available = True
 
     def test_translate_en_es_subprocess(self):
-        apertium.utils.wrappers_available = False
         test_translate = TestTranslate()
         test_translate.test_translator_en_spa()
         test_translate.test_en_spa()
-        apertium.utils.wrappers_available = True
 
     def test_tagger_en_subprocess(self):
-        apertium.utils.wrappers_available = False
         test_tagger = TestTagger()
         test_tagger.test_tagger_en()
         test_tagger.test_tag_en()
-        apertium.utils.wrappers_available = True
 
 
 class TestTranslate(unittest.TestCase):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        if platform.system() == 'Windows':
-            apertium.utils.wrappers_available = False
-
     def test_translator_en_spa(self):
         translator = apertium.Translator('eng', 'spa')
         translated = translator.translate('cats')
