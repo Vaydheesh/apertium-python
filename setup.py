@@ -15,10 +15,7 @@ def install_binaries() -> None:
 
     apertium.installer.install_apertium()
     apertium.installer.install_module('eng')
-    if platform.system() == 'Windows':
-        apertium.installer.install_module('eng-spa')
-    else:
-        apertium.installer.install_module('en-es')
+    apertium.installer.install_module('eng-spa')
     apertium.installer.install_module('kaz-tat')
     apertium.installer.install_wrapper('python3-apertium-core')
     apertium.installer.install_wrapper('python3-apertium-lex-tools')
