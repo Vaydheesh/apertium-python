@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 from os import path
+import platform
 import re
 from typing import List
 
@@ -14,7 +15,10 @@ def install_binaries() -> None:
 
     apertium.installer.install_apertium()
     apertium.installer.install_module('eng')
-    apertium.installer.install_module('en-es')
+    if platform.system() == 'Windows':
+        apertium.installer.install_module('eng-spa')
+    else:
+        apertium.installer.install_module('en-es')
     apertium.installer.install_module('kaz-tat')
     apertium.installer.install_wrapper('python3-apertium-core')
     apertium.installer.install_wrapper('python3-apertium-lex-tools')
