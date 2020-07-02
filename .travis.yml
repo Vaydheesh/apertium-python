@@ -11,6 +11,8 @@ install:
     - pip install pipenv
     - python3 setup.py install
     - pipenv install --dev --system
+    - ./tests/apertium_stable.sh
+
 script:
     - flake8 --verbose apertium
     - mypy apertium --strict --any-exprs-report .mypy_coverage --ignore-missing-imports;
@@ -21,9 +23,6 @@ script:
       fi;
     - coverage run -m unittest --verbose --buffer tests
     - coverage report --show-missing --fail-under 90 --include 'apertium/**'
-    - ./tests/apertium_stable.sh
-    - cat ./tests/kaz.txt | tee /dev/fd/2 | apertium kaz-tat
-    - lt-proc -w /usr/share/apertium/apertium-kaz-tat/kaz-tat.automorf.bin ./tests/kaz.txt
 after_success:
     - coveralls
 notifications:
