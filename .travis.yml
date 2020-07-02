@@ -6,7 +6,9 @@ cache:
         - /usr/local/bin
         - /usr/local/lib/python$TRAVIS_PYTHON_VERSION/site-packages
 python:
+    - '3.6'
     - '3.7'
+    - '3.8'
 install:
     - pip install pipenv
     - python3 setup.py install
