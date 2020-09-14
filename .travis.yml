@@ -13,7 +13,6 @@ install:
     - pip install pipenv
     - python3 setup.py install
     - pipenv install --dev --system
-    - ./tests/apertium_stable.sh
 
 script:
     - flake8 --verbose apertium

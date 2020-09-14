@@ -13,14 +13,14 @@ from setuptools.command.install import install
 def install_binaries() -> None:
     import apertium
 
-    apertium.installer.nightly = True
+    # apertium.installer.nightly = True
     apertium.installer.install_apertium()
     apertium.installer.install_module('eng')
     apertium.installer.install_module('eng-spa')
     if platform.system() == 'Windows':
-        apertium.installer.nightly = False
+        # apertium.installer.nightly = False
         apertium.installer.install_module('kaz-tat')
-        apertium.installer.nightly = True
+        # apertium.installer.nightly = True
     else:
         apertium.installer.install_module('kaz-tat')
     apertium.installer.install_wrapper('python3-apertium-core')
