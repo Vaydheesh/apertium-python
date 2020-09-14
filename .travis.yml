@@ -13,6 +13,8 @@ install:
     - pip install pipenv
     - python3 setup.py install
     - pipenv install --dev --system
+    - sudo apt-get install apertium-anaphora
+    - which apertium-anaphora || ls /usr/bin/apertium*
 
 script:
     - flake8 --verbose apertium
