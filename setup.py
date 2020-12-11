@@ -19,12 +19,10 @@ def install_binaries() -> None:
     apertium.installer.install_module('eng-spa')
 
     def kaz_tat_install():
-        apertium.installer.nightly = False
         ubuntu = apertium.installer.Debian()
         if platform.system() == 'Linux':
             ubuntu._install_package_source()
         apertium.installer.install_module('kaz-tat')
-        apertium.installer.nightly = True
         if platform.system() == 'Linux':
             ubuntu._install_package_source()
     kaz_tat_install()
