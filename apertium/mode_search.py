@@ -37,7 +37,7 @@ def is_loop(dirpath: str, rootpath: str, real_root: Union[None, str] = None) -> 
         return False
 
 
-def search_path(rootpath: str, include_pairs: bool = True) -> Dict[str, List[Tuple[str, str, str]]]:
+def _search_path(rootpath: str, include_pairs: bool = True) -> Dict[str, List[Tuple[str, str, str]]]:
     """
     Args:
         rootpath (str)

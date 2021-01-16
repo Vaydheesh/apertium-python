@@ -10,7 +10,7 @@ from typing import Dict, Tuple
 from apertium.analysis import analyze, Analyzer  # noqa: F401
 from apertium.generation import generate, Generator  # noqa: F401
 from apertium.installer import install_module  # noqa: F401
-from apertium.mode_search import search_path
+from apertium.mode_search import _search_path
 from apertium.tagger import tag, Tagger  # noqa: F401
 from apertium.translation import translate, Translator  # noqa: F401
 from apertium.utils import wrappers_available  # noqa: F401
@@ -29,7 +29,7 @@ def _update_modes() -> None:
 
     """
     for pair_path in pair_paths:
-        modes = search_path(pair_path)
+        modes = _search_path(pair_path)
         if modes['pair']:
             for path, lang_src, lang_trg in modes['pair']:
                 pairs[f'{lang_src}-{lang_trg}'] = path
