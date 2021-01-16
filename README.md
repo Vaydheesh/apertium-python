@@ -112,11 +112,20 @@ In [2]: apertium.translate('en', 'spa', 'cats')
 Out[2]: 'Gatos'
 ```
 
-### Installing more modes from other language data
+### Installing other language data
 
-One can also install modes by providing the path to the `lang-data`:
+One can also install modes by providing `lang-data`:
 
 ```python
 In [1]: import apertium
-In [2]: apertium.append_pair_path('..')
+In [2]: apertium.installer.install_module('..')
+```
+
+### Loading language modes from custom directory 
+
+One can also load module by providing the path to the `lang-data`:
+
+```python
+In [1]: import apertium
+In [2]: apertium.load_module('/path/to/directory')
 ```

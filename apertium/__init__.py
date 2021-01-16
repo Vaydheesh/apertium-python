@@ -44,7 +44,7 @@ def _update_modes() -> None:
                 taggers[lang_pair] = (dirpath, modename)
 
 
-def append_pair_path(pair_path: str) -> None:
+def load_module(pair_path: str) -> None:
     """
     Args:
         pair_path (str)
@@ -70,7 +70,7 @@ def windows_update_path() -> None:
         apertium_lang_path = \
             os.path.join(install_path, 'apertium-all-dev', 'share', 'apertium')
         if os.path.isdir(apertium_lang_path):
-            append_pair_path(apertium_lang_path)
+            load_module(apertium_lang_path)
     except KeyError:
         print('This function is available only for Windows')
         raise InstallationNotSupported(platform.system())

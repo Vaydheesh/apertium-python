@@ -15,14 +15,14 @@ import apertium  # noqa: E402
 
 
 class TestApertiumInit(unittest.TestCase):
-    def test_append_pair_path(self):
+    def test_load_module(self):
         apertium.pair_paths = []
         apertium.analyzers = {}  # type: Dict[str, Tuple[str, str]]
         apertium.generators = {}  # type: Dict[str, Tuple[str, str]]
         apertium.taggers = {}  # type: Dict[str, Tuple[str, str]]
         apertium.pairs = {}  # type: Dict[str, str]
-        apertium.append_pair_path('/usr/share/apertium')
-        apertium.append_pair_path('/usr/local/share/apertium')
+        apertium.load_module('/usr/share/apertium')
+        apertium.load_module('/usr/local/share/apertium')
         if platform.system() == 'Windows':
             apertium.windows_update_path()
         if not apertium.pair_paths or not apertium.analyzers or not apertium.generators or not apertium.taggers or not apertium.pairs:
